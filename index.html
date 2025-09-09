@@ -3,19 +3,347 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ansh Agrawal</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Ansh Agrawal — Developer Portfolio</title>
+  <meta name="description" content="Ansh Agrawal — IIT Delhi CSE (B.Tech + M.Tech). Systems, HPC, CUDA, ML. Projects, achievements, hackathons, and contact." />
+  <meta name="theme-color" content="#0ea5e9" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b1020;          /* deep space */
+      --panel: #0f162a;       /* card */
+      --muted: #9fb0d1;       /* text soft */
+      --text: #e6f0ff;        /* text strong */
+      --brand: #3b82f6;       /* blue */
+      --brand-2: #06b6d4;     /* cyan */
+      --ring: rgba(59,130,246,.45);
+    }
+    [data-theme="light"]{
+      --bg:#f7f9fc; --panel:#ffffff; --muted:#475569; --text:#0f172a; --brand:#2563eb; --brand-2:#0891b2; --ring:rgba(37,99,235,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:radial-gradient(1200px 600px at 10% -10%, rgba(14,165,233,.15), transparent 60%),
+                     radial-gradient(900px 500px at 110% 10%, rgba(59,130,246,.12), transparent 60%),
+                     var(--bg);
+         color:var(--text); font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";}
+    a{color:var(--brand); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .wrap{max-width:1100px;margin:0 auto;padding:28px 20px 64px}
+    header{display:flex;gap:18px;align-items:center;justify-content:space-between;position:sticky;top:0;background:linear-gradient(to bottom, rgba(11,16,32,.92), rgba(11,16,32,.75) 60%, transparent);backdrop-filter: blur(8px);padding:12px 20px;margin: -12px -20px 12px;border-bottom:1px solid rgba(148,163,184,.1)}
+    .brand{display:flex;align-items:center;gap:14px}
+    .avatar{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;color:white;font-weight:800}
+    .title h1{font-size:20px;line-height:1.1;margin:0}
+    .title small{color:var(--muted)}
+    nav a{margin-left:18px;color:var(--muted)}
+    nav a.active, nav a:hover{color:var(--text)}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));border:1px solid rgba(148,163,184,.18);color:var(--text);text-decoration:none}
+    .btn:hover{box-shadow:0 0 0 4px var(--ring)}
+
+    .grid{display:grid;gap:18px}
+    @media (min-width:900px){.grid{grid-template-columns: 1.3fr .7fr}}
+
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(148,163,184,.18); border-radius:18px; padding:18px 18px 14px}
+    .card h2{margin:0 0 10px; font-size:18px}
+    .muted{color:var(--muted)}
+    .tag{display:inline-block;margin:6px 6px 0 0;padding:4px 10px;border-radius:999px;font-size:12px;background:rgba(59,130,246,.12);color:#a5b4fc;border:1px solid rgba(59,130,246,.25)}
+    .row{display:flex;flex-wrap:wrap;gap:10px}
+
+    /* Project cards */
+    .projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .p{position:relative;overflow:hidden;padding:16px;border:1px solid rgba(148,163,184,.18);border-radius:16px;background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015));transition:transform .18s ease, box-shadow .18s ease}
+    .p:hover{transform:translateY(-4px); box-shadow:0 10px 30px rgba(2,8,23,.35)}
+    .p h3{margin:6px 0 8px;font-size:16px}
+    .p .desc{font-size:14px;color:var(--muted)}
+    .p .meta{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:#a3bffa}
+
+    /* section headings */
+    .section-title{display:flex;align-items:center;justify-content:space-between;margin:22px 0 12px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{padding:6px 10px;border-radius:999px;border:1px solid rgba(148,163,184,.18);background:rgba(255,255,255,.05);font-size:12px;color:var(--muted);cursor:pointer}
+    .chip.active{color:var(--text); border-color: rgba(59,130,246,.45); box-shadow:0 0 0 3px var(--ring)}
+
+    /* timeline bullets */
+    .list{display:grid;gap:10px}
+    .li{display:grid;gap:6px;padding:12px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015));border:1px solid rgba(148,163,184,.18)}
+    .li b{font-size:14px}
+    .li small{color:var(--muted)}
+
+    footer{margin-top:38px;padding-top:18px;border-top:1px dashed rgba(148,163,184,.25);display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;color:var(--muted)}
+
+    /* keyboard hint */
+    kbd{font-family:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size:12px; padding:2px 6px; border-radius:6px; border:1px solid rgba(148,163,184,.4); background:rgba(148,163,184,.08); color:var(--text)}
+    .hotkeys{display:flex;gap:14px;align-items:center}
+
+    /* modal for project details */
+    dialog{border:none;border-radius:16px;max-width:720px;width:92vw;background:var(--panel);color:var(--text);padding:0;box-shadow:0 30px 80px rgba(2,8,23,.6)}
+    dialog::backdrop{background:rgba(2,8,23,.6)}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid rgba(148,163,184,.18)}
+    .modal-body{padding:16px}
+    .x{background:none;border:1px solid rgba(148,163,184,.25);border-radius:10px;color:var(--text);padding:6px 10px;cursor:pointer}
+
+  </style>
 </head>
 <body>
-  <main>
-    <h1>Hi, I'm Ansh 👋</h1>
-    <p>IIT Delhi · CSE (Integrated B.Tech + M.Tech)</p>
-    <nav>
-      <a href="cv.pdf">CV</a> ·
-      <a href="projects.html">Projects</a> ·
-      <a href="mailto:anshagrawal.iitd@gmail.com">Email</a> ·
-      <a href="https://linkedin.com/in/ansh-agrawal">LinkedIn</a>
-    </nav>
-  </main>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="avatar">AA</div>
+        <div class="title">
+          <h1>Ansh Agrawal</h1>
+          <small>IIT Delhi · CSE (B.Tech + M.Tech) · Systems / HPC / CUDA / ML</small>
+        </div>
+      </div>
+      <nav>
+        <a href="#projects" class="active">Projects</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#hackathons">Hackathons</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="hotkeys">
+        <button id="theme" class="btn" title="Toggle theme (t)">🌗 Theme</button>
+        <a class="btn" href="cv.pdf" title="Download CV" target="_blank">⬇️ CV</a>
+      </div>
+    </header>
+
+    <section class="grid">
+      <div class="card">
+        <h2>About</h2>
+        <p class="muted">I build fast, reliable systems. Comfortable dropping into Linux kernel space, squeezing throughput with CUDA, and shipping end-to-end apps. I like measurable wins: fewer cache misses, lower tail latency, higher GFLOPS.</p>
+        <div class="row">
+          <span class="tag">C/C++</span>
+          <span class="tag">CUDA</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">Linux Kernel</span>
+          <span class="tag">OpenMP</span>
+          <span class="tag">Flask</span>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Quick Stats</h2>
+        <div class="list">
+          <div class="li"><b>CGPA:</b> <small>8.99 (IIT Delhi, Integrated CSE)</small></div>
+          <div class="li"><b>Dept Rank:</b> <small>9 after six semesters</small></div>
+          <div class="li"><b>JEE Advanced:</b> <small>AIR 196 (top 0.1%)</small></div>
+          <div class="li"><b>JEE Mains:</b> <small>AIR 811 (top percentile)</small></div>
+          <div class="li"><b>KVPY:</b> <small>AIR-162 (SA, 2021), AIR-148 (SX, 2022)</small></div>
+          <div class="li"><b>SURA Award:</b> <small>Adversarial ML for NIDS</small></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="section-title" id="projects">
+      <h2>Projects</h2>
+      <div class="filters">
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="systems">Systems</button>
+        <button class="chip" data-filter="hpc">HPC/CUDA</button>
+        <button class="chip" data-filter="ml">ML/AI</button>
+        <button class="chip" data-filter="app">Apps/Games</button>
+      </div>
+    </div>
+
+    <section class="projects">
+      <article class="p" data-tags="systems hpc">
+        <h3>Gang Scheduler in Linux Kernel</h3>
+        <p class="desc">Custom scheduler for tightly-coupled threads; added syscalls for gang registration/exit/listing. A dedicated governor coordinates synchronized execution via IPIs across CPU cores.</p>
+        <div class="meta"><span>Linux</span> · <span>Kernel</span> · <span>C</span></div>
+        <button class="chip" data-modal="gang">Details</button>
+      </article>
+
+      <article class="p" data-tags="hpc">
+        <h3>Block-CSR Sparse MatMul (CUDA/OpenMP)</h3>
+        <p class="desc">Block-sparse pipeline with CUDA + OpenMP, transforming matrices to Block-CSR and exploiting streams for throughput; measured speedups up to 1000× on target workloads.</p>
+        <div class="meta"><span>CUDA</span> · <span>OpenMP</span> · <span>C++</span></div>
+        <button class="chip" data-modal="spmm">Details</button>
+      </article>
+
+      <article class="p" data-tags="app ml">
+        <h3>Stock Trading Simulator & Strategies</h3>
+        <p class="desc">Flask-based simulator visualizing 100+ NSE stocks; implemented regression, indicators, and pair-trading strategies in C++ with PnL optimization and stop-loss management.</p>
+        <div class="meta"><span>Flask</span> · <span>C++</span> · <span>Finance</span></div>
+        <button class="chip" data-modal="trade">Details</button>
+      </article>
+
+      <article class="p" data-tags="ml">
+        <h3>MCTS AI for Havannah</h3>
+        <p class="desc">MCTS agent with dynamic rollout allocation, phase-aware heuristics, and union-find win detection for efficient gameplay and stronger openings.</p>
+        <div class="meta"><span>Search</span> · <span>Heuristics</span></div>
+        <button class="chip" data-modal="mcts">Details</button>
+      </article>
+
+      <article class="p" data-tags="app">
+        <h3>Petrichor — Mental Health RPG</h3>
+        <p class="desc">Narrative RPG in Pygame depicting recovery from depression; VN-style story with RPG mechanics and pixel art (DALL·E, SDXL2) in a clean, scalable codebase.</p>
+        <div class="meta"><span>Pygame</span> · <span>Game Dev</span></div>
+        <button class="chip" data-modal="petrichor">Details</button>
+      </article>
+    </section>
+
+    <div class="section-title" id="achievements">
+      <h2>Scholastic Achievements</h2>
+    </div>
+    <section class="list">
+      <div class="li"><b>JEE Advanced 2022:</b> <small>All India Rank 196 among 160k+ candidates; top 0.1% nationwide, securing IIT Delhi CSE.</small></div>
+      <div class="li"><b>JEE Mains 2022:</b> <small>All India Rank 811 among 1M+ candidates; consistent top-percentile performance across attempts.</small></div>
+      <div class="li"><b>KVPY Scholar:</b> <small>AIR-162 (SA, 2021) and AIR-148 (SX, 2022); awarded national research fellowship.</small></div>
+      <div class="li"><b>NTSE Scholarship:</b> <small>Qualified both stages in 2020 & 2021 at the national level.</small></div>
+      <div class="li"><b>Semester Merit Prize:</b> <small>Top 7% GPA in Sem I & V; institute merit award.</small></div>
+      <div class="li"><b>Department Rank:</b> <small>Ranked 9th in CSE after six semesters.</small></div>
+      <div class="li"><b>SURA Award 2024:</b> <small>Research on adversarial defense for deep-learning NIDS.</small></div>
+    </section>
+
+    <div class="section-title" id="hackathons">
+      <h2>Hackathons & Industry</h2>
+    </div>
+    <section class="list">
+      <div class="li">
+        <b>Tower Data Challenge — Second Runner-up.</b>
+        <small>Solved a modified Blackjack simulation using a Random Forest pipeline (feature-engineering + cross-validated tuning) with competitive edge on expected value and risk controls.</small>
+      </div>
+      <div class="li">
+        <b>Other Major Hackathons.</b>
+        <small>Runner-up at CodeCrusaders 2025; Champion at Tredence Hackfest 2024; Winner at Speranza Hackathon 2022; Runner-up at F1NALYZE Datathon (LightGBM-based F1 race forecasting).</small>
+      </div>
+      <div class="li">
+        <b>Optiver & Tower Office Visits.</b>
+        <small>Selected among top 20 for Tower Limestone Office (Gurgaon) visit; among top 90 nationwide for Optiver Mumbai workshops on trading & market making.</small>
+      </div>
+    </section>
+
+    <div class="section-title" id="contact">
+      <h2>Contact</h2>
+    </div>
+    <section class="card">
+      <div class="row" style="align-items:center;justify-content:space-between">
+        <div>
+          <div class="row">
+            <a class="btn" href="mailto:anshagrawal.iitd@gmail.com">📧 Email</a>
+            <a class="btn" href="https://linkedin.com/in/ansh-agrawal" target="_blank">🔗 LinkedIn</a>
+            <a class="btn" href="https://codeforces.com/profile/zzzura" target="_blank">⚙️ Codeforces</a>
+            <button id="copyMail" class="btn" title="Copy email (c)">📋 Copy Email</button>
+          </div>
+          <p class="muted" style="margin-top:10px">Open to SDE/Systems/HPC/CUDA/ML roles and research internships.</p>
+        </div>
+        <div>
+          <span class="tag">Delhi, India</span>
+          <span class="tag">Indian Citizen</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <small>© <span id="yr"></span> Ansh Agrawal. Built with vanilla HTML/CSS/JS.</small>
+      <small>Shortcuts: <kbd>t</kbd> theme, <kbd>/</kbd> filter, <kbd>c</kbd> copy email, <kbd>Esc</kbd> close modal.</small>
+    </footer>
+  </div>
+
+  <!-- Project detail modals -->
+  <dialog id="modal-gang">
+    <div class="modal-header"><strong>Gang Scheduler in Linux Kernel</strong><button class="x" data-close>Close</button></div>
+    <div class="modal-body">
+      <ul>
+        <li>Kernel scheduler for simultaneously dispatching tightly-coupled multithreaded gangs.</li>
+        <li>Introduced syscalls for gang registration, exit, listing; designated a governor thread; synchronized cores via IPIs.</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <dialog id="modal-spmm">
+    <div class="modal-header"><strong>Block-CSR Sparse MatMul (CUDA/OpenMP)</strong><button class="x" data-close>Close</button></div>
+    <div class="modal-body">
+      <ul>
+        <li>Block-CSR transform + CUDA kernels with streams; OpenMP for CPU-side orchestration.</li>
+        <li>Dataset-dependent speedups measured up to 1000× on target sparse workloads.</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <dialog id="modal-trade">
+    <div class="modal-header"><strong>Stock Trading Simulator & Strategies</strong><button class="x" data-close>Close</button></div>
+    <div class="modal-body">
+      <ul>
+        <li>Flask UI for multi-stock visualization; data for 100+ NSE tickers; strategy backtesting.</li>
+        <li>Regression + indicators + pair trading in C++; PnL and stop-loss optimization.</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <dialog id="modal-mcts">
+    <div class="modal-header"><strong>MCTS AI for Havannah</strong><button class="x" data-close>Close</button></div>
+    <div class="modal-body">
+      <ul>
+        <li>Dynamic rollout allocation and phase-aware heuristics.</li>
+        <li>Union-find win detection; improved early-game performance and openings.</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <dialog id="modal-petrichor">
+    <div class="modal-header"><strong>Petrichor — Mental Health RPG</strong><button class="x" data-close>Close</button></div>
+    <div class="modal-body">
+      <ul>
+        <li>Clean, scalable Pygame architecture; VN-style narrative with RPG mechanics.</li>
+        <li>Pixel art assets generated via DALL·E and SDXL2; focus on accessibility and story.</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <script>
+    // Theme toggle + persist
+    const root=document.documentElement; const themeBtn=document.getElementById('theme');
+    const saved=localStorage.getItem('theme'); if(saved){document.documentElement.setAttribute('data-theme', saved)}
+    themeBtn.addEventListener('click',()=>{const cur=document.documentElement.getAttribute('data-theme'); const next=cur==='light'?null:'light'; if(next){document.documentElement.setAttribute('data-theme','light'); localStorage.setItem('theme','light')} else {document.documentElement.removeAttribute('data-theme'); localStorage.removeItem('theme')}})
+
+    // Year
+    document.getElementById('yr').textContent=new Date().getFullYear();
+
+    // Copy email
+    document.getElementById('copyMail').addEventListener('click',()=>{navigator.clipboard.writeText('anshagrawal.iitd@gmail.com'); alert('Email copied!')});
+
+    // Filters
+    const chips=[...document.querySelectorAll('.chip[data-filter]')];
+    const cards=[...document.querySelectorAll('.p')];
+    function applyFilter(tag){ chips.forEach(c=>c.classList.toggle('active', c.dataset.filter===tag || (tag==='all' && c.dataset.filter==='all'))); cards.forEach(el=>{const tags=el.dataset.tags.split(' '); const show = tag==='all' || tags.includes(tag); el.style.display = show? 'block':'none';}); }
+    chips.forEach(ch=>ch.addEventListener('click',()=>applyFilter(ch.dataset.filter)));
+
+    // Modals
+    const map={ gang: 'modal-gang', spmm:'modal-spmm', trade:'modal-trade', mcts:'modal-mcts', petrichor:'modal-petrichor' };
+    document.addEventListener('click', (e)=>{
+      const trg=e.target; if(trg.matches('[data-modal]')){ const id=map[trg.dataset.modal]; if(id){ document.getElementById(id).showModal(); } }
+      if(trg.hasAttribute('data-close')){ trg.closest('dialog').close(); }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='t') themeBtn.click();
+      if(e.key==='c') document.getElementById('copyMail').click();
+      if(e.key==='/'){ e.preventDefault(); document.querySelector('.chip.active')?.focus(); }
+      if(e.key==='Escape'){ document.querySelectorAll('dialog[open]')?.forEach(d=>d.close()); }
+    });
+  </script>
+
+  <!-- SEO JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ansh Agrawal",
+    "url": "https://example.com/",
+    "email": "mailto:anshagrawal.iitd@gmail.com",
+    "sameAs": [
+      "https://linkedin.com/in/ansh-agrawal",
+      "https://codeforces.com/profile/zzzura"
+    ],
+    "alumniOf": {"@type": "CollegeOrUniversity", "name": "IIT Delhi"},
+    "knowsAbout": ["Systems", "HPC", "CUDA", "Machine Learning", "Linux Kernel"],
+    "hasCredential": [
+      {"@type":"EducationalOccupationalCredential","credentialCategory":"JEE Advanced","name":"AIR 196"},
+      {"@type":"EducationalOccupationalCredential","credentialCategory":"JEE Mains","name":"AIR 811"}
+    ]
+  }
+  </script>
 </body>
 </html>
